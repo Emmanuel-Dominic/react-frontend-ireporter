@@ -1,48 +1,42 @@
 import axios from 'axios';
-import { RegistrationConstants } from '../actionTypes';
-import { toastSuccess, toastFailure } from '../../utils/toast';
-import history from '../../utils/history';
+import { RegistrationConstants } from 'store/actions/actionTypes';
+import { toastSuccess, toastFailure } from 'utils/Toast';
+import history from 'utils/History';
 
-export function registerUserSuccess(successMessage) {
-  return {
-    type: RegistrationConstants.REGISTER_SUCCESS,
-    payload: successMessage,
-  };
-}
 
-export function registerUserFail(errorMessage) {
-  return {
-    type: RegistrationConstants.REGISTER_FAILURE,
-    payload: errorMessage,
-  };
-}
-
-export function registerRequest() {
-  return {
+export const Registration = newUser => (dispatch) => {
+  dispatch({
     type: RegistrationConstants.REGISTER_REQUEST,
-  };
-}
-
-export function registerUser(newUser) {
-  // eslint-disable-next-line func-names
-  return function (dispatch) {
-    dispatch(registerRequest());
-    return axios.post('https://ah-backend-kronos-staging.herokuapp.com/api/users/', newUser, {
-      headers: { 'Content-Type': 'application/json' },
+  });
+  return axios
+    .post('http://127.0.0.1:5000/api/v3/auth/signup', newUser, {
+      headers: {
+        'content-type': 'application/json',
+      },
     })
-      .then((response) => {
-        dispatch(registerUserSuccess(response.data));
-        toastSuccess('Account created. Check your email to verify', 'A');
-        history.push('/login');
-      })
-      .catch((error) => {
-        dispatch(registerUserFail(error.response.data));
-        const errors = error.response.data;
-        if (Object.keys(errors.errors).length === 1) {
-          toastFailure(Object.values(errors.errors)[0][0], 'A');
-        } else {
-          toastFailure('Email and username already exist', 'A');
-        }
+    .then((response) => {
+      dispatch({
+        type: RegistrationConstants.REGISTER_SUCCESS,
+        payload: response.data.message,
       });
-  };
-}
+      toastSuccess(`Account created and you are ${response.data.message}`, 'A');
+      history.push('/login');
+    })
+    .catch((error) => {
+      if (error.response.status === 400) {
+        dispatch({
+          type: RegistrationConstants.REGISTER_FAILURE,
+          payload: error.response.data.error.message,
+        });
+        toastFailure(`${error.response.data.error.message}`, 'A');
+      } else if (error.response.status === 406) {
+        dispatch({
+          type: RegistrationConstants.REGISTER_FAILURE,
+          payload: error.response.data.error,
+        });
+        toastFailure('All fields are required', 'A');
+      }
+    });
+};
+
+export default Registration;

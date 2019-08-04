@@ -1,94 +1,22 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import Input from '../../../components/common/Input';
-import Button from '../../../components/common/Button';
-import { SignUpForm, mapStateToProps } from '../../../components/auth/registration/SignUpForm';
-import Loading from '../../../components/common/Loading';
-import { Navigation } from '../../../components/common/navigation/AuthNavigation';
+import { Signup, mapStateToProps } from 'components/registration';
+import { Navigation } from 'components/Navigation';
 
-function renderInputField(args) {
+
+function renderSignup(args) {
   const defaultProps = {
-    name: '',
-    type: '',
-    value: '',
-    handleChange: () => { },
-    placeholder: '',
-    onBlur: () => { },
-    className: '',
-    fieldError: '',
-  };
-
-  const props = { ...defaultProps, ...args };
-  return shallow(<Input {...props} />);
-}
-
-function renderButtonField(args) {
-  const defaultProps = {
-    className: '',
-    children: '',
-  };
-  const props = { ...defaultProps, ...args };
-  return shallow(<Button {...props} />);
-}
-
-function renderSignUpForm(args) {
-  const defaultProps = {
-    actions: { registerUser: jest.fn() },
+    actions: { Register: jest.fn() },
     user: {},
+    Register: jest.fn(),
   };
   const props = { ...defaultProps, ...args };
-  return shallow(<SignUpForm {...props} />);
+  return shallow(<Signup {...props} />);
 }
-
-function renderLoading() {
-  return shallow(<Loading />);
-}
-
-function renderNavigation(args) {
-  const defaultProps = {
-    nextProps: {
-      loggedIn: false,
-    },
-  };
-  const props = { ...defaultProps, ...args };
-  return shallow(<Navigation {...props} />);
-}
-it('should render Navigation', () => {
-  const wrapper = renderNavigation();
-  expect(wrapper).toMatchSnapshot();
-});
 
 describe('registration page', () => {
-  const wrapper = renderSignUpForm();
+  const wrapper = renderSignup();
   const wrapperInst = wrapper.instance();
-
-  it('should render Navigation', () => {
-    const wrapper = renderNavigation();
-    expect(wrapper).toMatchSnapshot();
-  });
-
-  it('should render Loading in form', () => {
-    const loader = renderLoading();
-    expect(loader).toMatchSnapshot();
-  });
-
-
-  it('should render input field in form', () => {
-    const inputfields = renderInputField();
-    expect(inputfields.find('input').length).toBe(1);
-  });
-
-  it('should render button field in form', () => {
-    const button = renderButtonField();
-    expect(button.find('button').length).toBe(1);
-  });
-
-  it('form contains three input fields and one button', () => {
-    const numOfInputs = wrapper.find('Input').length;
-    const numOfButtons = wrapper.find('Button').length;
-    expect(numOfInputs).toEqual(4);
-    expect(numOfButtons).toEqual(1);
-  });
 
   it('should match the snapshot', () => {
     expect(wrapper).toMatchSnapshot();
@@ -97,36 +25,45 @@ describe('registration page', () => {
   it('should handle input change', () => {
     const event = {
       target: {
-        name: 'username',
-        value: 'fred',
+        name: 'userName',
+        value: 'emma',
       },
     };
     wrapperInst.handleChange(event);
-    expect(wrapperInst.state.username).toBe('fred');
+    expect(wrapperInst.state.userName).toBe('emma');
   });
 
   it('should handle submit and clear form after', () => {
     wrapper.setState({
-      username: 'fred',
+      userName: 'emma',
+      firstName: 'emma',
+      lastName: 'emma',
+      phoneNumber: '07000000000',
       email: 'email@email.com',
       password: 'password',
       confirmpassword: 'confirmpassword',
     });
 
-    expect(wrapperInst.state.username).toBe('fred');
+    expect(wrapperInst.state.userName).toBe('emma');
+    expect(wrapperInst.state.firstName).toBe('emma');
+    expect(wrapperInst.state.lastName).toBe('emma');
+    expect(wrapperInst.state.phoneNumber).toBe('07000000000');
     expect(wrapperInst.state.email).toBe('email@email.com');
     expect(wrapperInst.state.password).toBe('password');
     expect(wrapperInst.state.confirmpassword).toBe('confirmpassword');
 
     const event = {
+      Register: jest.fn(),
       target: {
         type: 'submit',
       },
       preventDefault: jest.fn(),
     };
-    wrapperInst.submitForm(event);
-    expect(wrapperInst.props.actions.registerUser).toBeCalled();
-    expect(wrapperInst.state.username).toBe('');
+    wrapperInst.handleSubmit(event);
+    expect(wrapperInst.state.userName).toBe('');
+    expect(wrapperInst.state.firstName).toBe('');
+    expect(wrapperInst.state.lastName).toBe('');
+    expect(wrapperInst.state.phoneNumber).toBe('');
     expect(wrapperInst.state.email).toBe('');
     expect(wrapperInst.state.password).toBe('');
     expect(wrapperInst.state.confirmpassword).toBe('');
