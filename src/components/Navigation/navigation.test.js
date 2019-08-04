@@ -1,12 +1,11 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import App from 'components/App';
-
+import Navigation from 'components/Navigation';
 
 // test to check if the App component matches the snapshot
-describe('App Component', () => {
+describe('Navigation Component', () => {
   it('renders without crashing', () => {
-    const component = shallow(<App />);
+    const component = shallow(<Navigation />);
     expect(component.exists()).toBe(true);
   });
 });
