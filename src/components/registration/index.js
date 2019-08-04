@@ -1,45 +1,44 @@
 import React, { Component } from 'react';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import * as registrationActions from '../../../actions/auth/registrationAction';
-import Button from '../../common/Button';
-import Input from '../../common/Input';
-import Loading from '../../common/Loading';
-import '../../../assets/scss/signup.scss';
+import Registration from 'store/actions/registration';
+import '../../assets/scss/Signup.scss';
 
-export class SignUpForm extends Component {
+export class Signup extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
       email: '',
-      username: '',
+      userName: '',
+      firstName: '',
+      lastName: '',
+      phoneNumber: '',
       password: '',
       emailError: '',
       usernameError: '',
+      firstnameError: '',
+      lastnameError: '',
+      phonenumberError: '',
       passwordError: '',
       confirmpassword: '',
       confirmPasswordError: '',
     };
-
-    this.handleChange = this.handleChange.bind(this);
-    this.submitForm = this.submitForm.bind(this);
-    this.validateFormData = this.validateFormData.bind(this);
-    this.handleClearForm = this.handleClearForm.bind(this);
   }
 
-  handleChange(event) {
+  handleChange = (event) => {
     this.setState({
       [event.target.name]: event.target.value,
-    }, () => { this.validateFormData(); });
+    });
   }
 
-  validateFormData() {
+  validateFormData = () => {
     const {
       email,
-      username,
+      userName,
+      firstName,
+      lastName,
+      phoneNumber,
       password,
       confirmpassword,
     } = this.state;
@@ -50,27 +49,32 @@ export class SignUpForm extends Component {
     const usernameValidation = new RegExp('^([a-zA-Z\d]+[-_])*[a-zA-Z\d*]+$');
 
     this.setState({
-      emailError: email.length > 3 ? null : 'Email must be longer than 3 characters',
-      usernameError: username.length > 3 && usernameValidation.test(username) ? null : 'Username should be 4 characters and cannot be integers, have white spaces or symbol',
+      emailError: email.length > 8 ? null : 'Please enter a vaild Email Address',
+      usernameError: userName.length > 3 && usernameValidation.test(userName) ? null : 'Username should be 4 characters and cannot be integers, have white spaces or symbol',
+      firstnameError: firstName.length > 4 && usernameValidation.test(firstName) ? null : 'firstname should be 4 characters and cannot be integers, have white spaces or symbol',
+      lastnameError: lastName.length > 4 && usernameValidation.test(lastName) ? null : 'lastname should be 4 characters and cannot be integers, have white spaces or symbol',
+      phonenumberError: phoneNumber.length > 9 ? null : 'Please provide a valid Phonenumber',
       passwordError: passwordValidation.test(password) ? null : 'Password should be 8 to more characters with atleast a number, capital and small letter.',
       confirmPasswordError: confirmpassword === password ? null : 'Passwords don\'t match',
     });
   }
 
-
-  submitForm(event) {
+  handleSubmit = (event) => {
     event.preventDefault();
-    const { email, username, password } = this.state;
-    const { actions } = this.props;
-    const newUser = { email, username, password };
-    actions.registerUser(newUser);
-    this.handleClearForm();
-  }
-
-  handleClearForm() {
+    const {
+      email, userName, firstName, lastName, phoneNumber, password
+    } = this.state;
+    const { Register } = this.props;
+    const newUser = {
+      email, userName, firstName, lastName, phoneNumber, password
+    };
+    Register(newUser);
     this.setState({
       email: '',
-      username: '',
+      userName: '',
+      firstName: '',
+      lastName: '',
+      phoneNumber: '',
       password: '',
       confirmpassword: '',
     });
@@ -79,79 +83,120 @@ export class SignUpForm extends Component {
   render() {
     const {
       email,
-      username,
+      userName,
+      firstName,
+      lastName,
+      phoneNumber,
       password,
       confirmpassword,
       emailError,
       usernameError,
+      firstnameError,
+      lastnameError,
+      phonenumberError,
       passwordError,
       confirmPasswordError,
     } = this.state;
 
-    const { user } = this.props;
-
     return (
-      <div className="register-photo">
-        <div className="form-container">
+      <div className="register-photo body">
+        <div className="form-container container">
           <div className="image-holder" />
-          <form onSubmit={this.submitForm}>
+          <form>
             <h2 className="text-center">
-              <strong>Create </strong>
+              <strong className="head-text">Create </strong>
             an account
             </h2>
-            {user.registering ? <Loading />
-              : (
-                <div>
-                  <Input
-                    name="email"
-                    type="email"
-                    placeholder="Email"
-                    value={email}
-                    handleChange={this.handleChange}
-                    onBlur={this.validateFormData}
-                    className={`form-control ${emailError ? 'is-invalid' : ''}`}
-                    fieldError={emailError}
-                  />
-                  <Input
-                    name="username"
-                    type="text"
-                    placeholder="Username"
-                    value={username}
-                    handleChange={this.handleChange}
-                    onBlur={this.validateFormData}
-                    className={`form-control ${usernameError ? 'is-invalid' : ''}`}
-                    fieldError={usernameError}
-                  />
-                  <Input
-                    name="password"
-                    type="password"
-                    placeholder="Password"
-                    value={password}
-                    handleChange={this.handleChange}
-                    onBlur={this.validateFormData}
-                    className={`form-control ${passwordError ? 'is-invalid' : ''}`}
-                    fieldError={passwordError}
-                  />
-                  <Input
-                    name="confirmpassword"
-                    type="password"
-                    placeholder="Password (Confirm)"
-                    value={confirmpassword}
-                    handleChange={this.handleChange}
-                    onBlur={this.validateFormData}
-                    className={`form-control ${confirmPasswordError ? 'is-invalid' : ''}`}
-                    fieldError={confirmPasswordError}
-                  />
-
-                </div>
-              )
-
-
-          }
+            <div>
+              <input
+                id="email"
+                type="email"
+                name="email"
+                value={email}
+                onChange={this.handleChange}
+                onBlur={this.validateFormData}
+                placeholder="Email"
+                className="form-control"
+                required
+              />
+              <p className="error">{emailError}</p>
+              <input
+                id="username"
+                type="text"
+                name="userName"
+                value={userName}
+                onChange={this.handleChange}
+                onBlur={this.validateFormData}
+                placeholder="Username"
+                className="form-control"
+                required
+              />
+              <p className="error">{usernameError}</p>
+              <input
+                id="firstname"
+                type="text"
+                name="firstName"
+                value={firstName}
+                onChange={this.handleChange}
+                onBlur={this.validateFormData}
+                placeholder="firstName"
+                className="form-control"
+                required
+              />
+              <p className="error">{firstnameError}</p>
+              <input
+                id="lastname"
+                type="text"
+                name="lastName"
+                value={lastName}
+                onChange={this.handleChange}
+                onBlur={this.validateFormData}
+                placeholder="lastName"
+                className="form-control"
+                required
+              />
+              <p className="error">{lastnameError}</p>
+              <input
+                id="phonenumber"
+                type="number"
+                name="phoneNumber"
+                value={phoneNumber}
+                onChange={this.handleChange}
+                onBlur={this.validateFormData}
+                placeholder="phoneNumber"
+                className="form-control"
+                required
+              />
+              <p className="error">{phonenumberError}</p>
+              <input
+                id="password"
+                type="password"
+                name="password"
+                value={password}
+                onChange={this.handleChange}
+                onBlur={this.validateFormData}
+                placeholder="Password"
+                className="form-control"
+                required
+              />
+              <p className="error">{passwordError}</p>
+              <input
+                id="confirmpassword"
+                type="password"
+                name="confirmpassword"
+                value={confirmpassword}
+                onChange={this.handleChange}
+                onBlur={this.validateFormData}
+                placeholder="Confirmpassword"
+                className="form-control"
+                required
+              />
+              <p className="error">{confirmPasswordError}</p>
+            </div>
             <div className="form-group">
               <Link to="/" className="already">Changed your mind? Cancel registration.</Link>
             </div>
-            <Button className="btn btn-primary btn-block">Signup</Button>
+            <button type="submit" onClick={this.handleSubmit} className="btn btn-primary btn-block">Signup</button>
             <Link to="/login" className="already">You already have an account? Login here.</Link>
           </form>
         </div>
@@ -160,17 +205,12 @@ export class SignUpForm extends Component {
   }
 }
 
-SignUpForm.propTypes = {
-  actions: PropTypes.shape({ registerUser: PropTypes.func }).isRequired,
-  user: PropTypes.shape({ registerUser: PropTypes.func }).isRequired,
+Signup.propTypes = {
+  Register: PropTypes.func.isRequired,
 };
 
 export const mapStateToProps = state => ({
   user: state.user,
 });
 
-export const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators(registrationActions, dispatch),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(SignUpForm);
+export default connect(mapStateToProps, { Register: Registration })(Signup);
