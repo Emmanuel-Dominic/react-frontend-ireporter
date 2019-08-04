@@ -1,32 +1,31 @@
 import axios from 'axios';
 import { toast } from 'react-toastify';
-import { LoginConstants } from '../actionTypes';
-import history from '../../utils/history';
-import { toastSuccess, toastFailure } from '../../utils/toast';
+import LoginConstants from 'store/actions/actionTypes';
+import history from 'utils/History';
+import { toastSuccess, toastFailure } from 'utils/Toast';
 
 
-const loginUserAction = loginData => dispatch => axios.post('https://ah-backend-kronos-staging.herokuapp.com/api/users/login/', loginData)
+const loginAction = loginData => dispatch => axios.post('https://flask-backend-ireporter.herokuapp.com/api/v3/auth/login', loginData)
   .then((response) => {
+    toastSuccess(`Welcome ${response.data.username}. Login Successful`, 'A');
+    sessionStorage.setItem('token', response.data.token);
+    sessionStorage.setItem('isLoggedIn', true);
     dispatch({
-      type: LoginConstants.LOGIN_USER_SUCCESS,
+      type: LoginConstants.LOGIN_SUCCESS,
       payload: response.data,
     });
     toast.dismiss();
-    toastSuccess(`Welcome ${response.data.user.username}. Login Successful`, 'A');
-    sessionStorage.setItem('token', response.data.user.auth_token);
-    sessionStorage.setItem('username', response.data.user.username);
-    sessionStorage.setItem('isLoggedIn', true);
-    history.push('/articles');
+    history.push('/home');
   })
   .catch((error) => {
     dispatch({
-      type: LoginConstants.LOGIN_USER_FAILED,
-      payload: error.response.data,
+      type: LoginConstants.LOGIN_FAILURE,
+      payload: error.response.data.message,
     });
     if (error.response.data) {
       toast.dismiss();
-      toastFailure(`${error.response.data.errors.error[0]}`, 'A');
+      toastFailure(`${error.response.data.message}`, 'A');
     }
   });
 
-export default loginUserAction;
+export default loginAction;

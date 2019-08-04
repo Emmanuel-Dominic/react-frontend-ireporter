@@ -1,16 +1,14 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { Login } from 'components/Login';
+import Navigation from 'components/Navigation';
 
 // test to check if the App component matches the snapshot
-describe('<Login />', () => {
+describe('<Navigation />', () => {
   it('should match snapshot', () => {
     const props = {
-      login: jest.fn(),
-      handleSubmit: jest.fn(),
-      hanndleChange: jest.fn(),
+      hanndleClick: jest.fn(),
     };
-    const wrapper = shallow(<Login {...props} />);
+    const wrapper = shallow(<Navigation {...props} />);
     expect(wrapper.exists()).toBe(true);
   });
 });
