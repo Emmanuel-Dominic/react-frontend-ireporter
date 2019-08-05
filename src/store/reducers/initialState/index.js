@@ -1,4 +1,4 @@
-const initialLogin = {
+export const initialLogin = {
   isUserLoggedIn: false,
   token: '',
   user: {},
@@ -6,4 +6,13 @@ const initialLogin = {
   logged_in: false,
 };
 
-export default initialLogin;
+
+export const initialRegistrationState = {
+  registering: false,
+  registered: false,
+  message: '',
+};
+
+export const initialIncidentState = {
+  incidents: [],
+};

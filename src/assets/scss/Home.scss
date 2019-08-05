@@ -1,10 +1,8 @@
-.home {
-    color: #007bff;
-    margin: auto;
+.title {
+    color: blue;
 }
-
 @media only screen and (min-width: 600px) {
-    .body {
+    .incident-body {
         min-height: 500px;
         margin: auto;
         padding: 75px 0;
@@ -13,7 +11,7 @@
 
 
 @media only screen and (max-width: 600px) {
-    .body {
+    .incident-body {
         min-height: 150px;
         margin: auto;
         padding: 40px 0;
