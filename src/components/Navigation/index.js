@@ -46,6 +46,7 @@ export default class Navigation extends React.Component {
                   )
                   : (
                     <React.Fragment>
+                      <Link to="/signup" className="btn btn-light action-buttons">Sign Up</Link>
                       <Link to="/login" className="btn btn-light action-buttons">Log In</Link>
                     </React.Fragment>
                   )
