@@ -27,6 +27,12 @@
     "redux-thunk": "^2.3.0",
     "sass-loader": "^7.1.0",
     "url-loader": "^2.1.0"
+    "react-redux": "^7.0.3",
+    "react-router-dom": "^4.3.1",
+    "react-toastify": "^5.3.2",
+    "redux": "^4.0.1",
+    "redux-devtools-extension": "^2.13.8",
+    "redux-thunk": "^2.3.0"
   },
   "jest": {
     "setupFiles": [
@@ -34,7 +40,8 @@
     ],
     "snapshotSerializers": [
       "enzyme-to-json/serializer"
-    ]
+    ],
+    "serve": "^11.0.1"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0-beta.40",
@@ -65,6 +72,7 @@
     "html-webpack-plugin": "^3.2.0",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^24.8.0",
+    "jest-css-modules-transform": "^2.2.0",
     "node-sass": "^4.12.0",
     "sass-loader": "^7.1.0",
     "style-loader": "^0.23.1",
