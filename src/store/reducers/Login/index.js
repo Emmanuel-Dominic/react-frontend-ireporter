@@ -1,5 +1,5 @@
 import { LoginConstants } from 'store/actions/actionTypes';
-import initialLogin from 'store/reducers/initialState';
+import { initialLogin } from 'store/reducers/initialState';
 
 
 const loginReducer = (state = initialLogin, { type, payload }) => {

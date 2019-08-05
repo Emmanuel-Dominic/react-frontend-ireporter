@@ -7,7 +7,6 @@ import { toastSuccess, toastFailure } from 'utils/Toast';
 
 const loginAction = loginData => dispatch => axios.post('https://flask-backend-ireporter.herokuapp.com/api/v3/auth/login', loginData)
   .then((response) => {
-    toastSuccess(`Welcome ${response.data.username}. Login Successful`, 'A');
     sessionStorage.setItem('token', response.data.token);
     sessionStorage.setItem('isLoggedIn', true);
     dispatch({
