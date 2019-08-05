@@ -23,7 +23,7 @@ describe('reducer initial state', () => {
     ).toEqual({
       isUserLoggedIn: false,
       token: '',
-      errors: 'error message here',
+      errors: ['error message here'],
     });
   });
   it('should handle LOGIN_USER_SUCCESS', () => {
@@ -42,6 +42,11 @@ describe('reducer initial state', () => {
           },
         },
       ),
-    ).toEqual({});
+    ).toEqual({
+      isUserLoggedIn: true,
+      logged_in: true,
+      token: '',
+      user: undefined,
+    });
   });
 });

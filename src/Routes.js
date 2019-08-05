@@ -1,20 +1,21 @@
-import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { Router } from 'react-router';
-import Navigation from 'components/Navigation';
-import history from 'utils/History';
 import Footer from 'components/Footer';
-import PrivateRoute from 'utils/PrivateRoute';
-import Login from 'components/Login';
-import Welcome from 'components/Welcome';
+import history from 'utils/History';
 import Home from 'components/Home';
-
+import Login from 'components/Login';
+import Navigation from 'components/Navigation';
+import PrivateRoute from 'utils/PrivateRoute';
+import React from 'react';
+import Signup from 'components/registration';
+import Welcome from 'components/Welcome';
 
 function Routes() {
   return (
     <Router history={history}>
       <Navigation />
       <Switch>
+        <Route exact path="/signup" component={Signup} />
         <Route exact path="/login" component={Login} />
         <Route exact path="/" component={Home} />
         <PrivateRoute
@@ -22,7 +23,7 @@ function Routes() {
           path="/home"
           component={Welcome}
           isAuthenticated={sessionStorage.getItem('isLoggedIn')}
-         />        
+        />
       </Switch>
       <Footer />
     </Router>

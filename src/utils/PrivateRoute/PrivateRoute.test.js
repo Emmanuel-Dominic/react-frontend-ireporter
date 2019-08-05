@@ -2,7 +2,7 @@ import { shallow } from 'enzyme';
 import React from 'react';
 import toJson from 'enzyme-to-json';
 
-import PrivateRoute from 'utils/privateRoute';
+import PrivateRoute from 'utils/PrivateRoute';
 
 
 describe('<PrivateRoute />', () => {
