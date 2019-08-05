@@ -4,13 +4,29 @@ import { Login } from 'components/Login';
 
 
 describe('<LoginUser />', () => {
+  let wrapper;
+  const props = {
+    login: jest.fn(),
+    handleSubmit: jest.fn(),
+    handleChange: jest.fn(),
+  };
+  beforeEach(() => {
+    wrapper = shallow(<Login {...props} />);
+  });
   it('should match snapshot', () => {
-    const props = {
-      login: jest.fn(),
-      handleSubmit: jest.fn(),
-      handleChange: jest.fn(),
+    const component = shallow(<Login {...props} />);
+    expect(component).toMatchSnapshot();
+  });
+  it('should handle submit and change', () => {
+    const event = {
+      preventDefault: jest.fn(),
+      target: {
+        name: 'userName',
+        value: 'emma',
+      },
     };
-    const wrapper = shallow(<Login {...props} />);
-    expect(wrapper).toMatchSnapshot();
+    wrapper.instance().handleSubmit(event);
+    wrapper.instance().handleChange(event);
+    expect(props).toBeTruthy();
   });
 });

@@ -1,7 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { Signup, mapStateToProps } from 'components/registration';
-import { Navigation } from 'components/Navigation';
 
 
 function renderSignup(args) {
