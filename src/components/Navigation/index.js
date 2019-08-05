@@ -18,7 +18,7 @@ export default class Navigation extends React.Component {
     return (
       <nav className="navbar navbar-light navbar-expand-md navbar-fixed-top navigation-clean-button">
         <div className="container">
-          <Link to="/index" className="navbar-brand">
+          <Link to="/" className="navbar-brand">
             <span className="head-text">&#8465;&#8477;&#8455;</span>
             PORT
             <span className="head-text">&#8455;&#8477;</span>
@@ -41,7 +41,7 @@ export default class Navigation extends React.Component {
                       <Link to="/home" className="btn btn-light action-buttons">
                         Home
                       </Link>
-                      <Link to="/logout" className="btn btn-light action-buttons">logout</Link>
+                      <Link to="/login" className="btn btn-light action-buttons" onClick={this.handleClick}>logout</Link>
                     </React.Fragment>
                   )
                   : (

@@ -14,7 +14,7 @@ const loginReducer = (state = initialLogin, { type, payload }) => {
     case LoginConstants.LOGIN_FAILURE:
       return {
         ...state,
-        errors: payload.errors.error,
+        errors: payload.errors.error, 
         isUserLoggedIn: false,
       };
     default:

@@ -59,7 +59,10 @@ export class Login extends React.Component {
     return (
       <div className="body">
         <form className="container">
-          <h2 className="sr-only">Login Form</h2>
+          <h2 className="sr-only text-center">
+            <strong className="head-text">Login</strong>
+            Form
+          </h2>
           <div className="illustration">
             <i className="icon ion-ios-navigate" />
           </div>

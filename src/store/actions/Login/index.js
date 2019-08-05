@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { toast } from 'react-toastify';
-import LoginConstants from 'store/actions/actionTypes';
+import { LoginConstants } from 'store/actions/actionTypes';
 import history from 'utils/History';
 import { toastSuccess, toastFailure } from 'utils/Toast';
 
@@ -12,7 +12,7 @@ const loginAction = loginData => dispatch => axios.post('https://flask-backend-i
     sessionStorage.setItem('isLoggedIn', true);
     dispatch({
       type: LoginConstants.LOGIN_SUCCESS,
-      payload: response.data,
+      payload: response.data.message,
     });
     toast.dismiss();
     history.push('/home');

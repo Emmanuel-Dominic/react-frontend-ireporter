@@ -22,7 +22,7 @@ function Routes() {
           path="/home"
           component={Welcome}
           isAuthenticated={sessionStorage.getItem('isLoggedIn')}
-        />
+         />        
       </Switch>
       <Footer />
     </Router>
