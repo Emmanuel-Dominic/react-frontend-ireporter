@@ -1,0 +1,25 @@
+.head-text{
+    color:rgb(124,252,0);
+}
+
+.error{
+    color: brown;
+    padding: 1px;
+}
+
+@media only screen and (min-width: 600px) {
+    .body {
+        min-height: 500px;
+        margin: auto;
+        padding: 75px 0;
+    }
+}
+
+
+@media only screen and (max-width: 600px) {
+    .body {
+        min-height: 150px;
+        margin: auto;
+        padding: 40px 0;
+    }
+}

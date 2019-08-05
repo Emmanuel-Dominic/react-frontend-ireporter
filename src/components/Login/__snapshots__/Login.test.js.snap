@@ -1,0 +1,77 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<LoginUser /> should match snapshot 1`] = `
+<div
+  className="body"
+>
+  <form
+    className="container"
+  >
+    <h2
+      className="sr-only text-center"
+    >
+      <strong
+        className="head-text"
+      >
+        Login
+      </strong>
+      Form
+    </h2>
+    <div
+      className="illustration"
+    >
+      <i
+        className="icon ion-ios-navigate"
+      />
+    </div>
+    <p
+      className="errors"
+    />
+    <div
+      className="container"
+    >
+      <div
+        className="form-group"
+      >
+        <input
+          className="form-control"
+          id="email"
+          name="email"
+          onChange={[Function]}
+          placeholder="Email"
+          type="email"
+        />
+      </div>
+      <div
+        className="form-group"
+      >
+        <input
+          className="form-control"
+          id="password"
+          name="password"
+          onChange={[Function]}
+          placeholder="Password"
+          type="password"
+        />
+      </div>
+      <div
+        className="form-group"
+      >
+        <button
+          className="btn btn-primary btn-block"
+          onClick={[Function]}
+          type="submit"
+        >
+          Login
+        </button>
+      </div>
+    </div>
+    <a
+      className="forgot"
+      href="#"
+    >
+      Forgot your email or password?
+    </a>
+  </form>
+</div>
+`;
