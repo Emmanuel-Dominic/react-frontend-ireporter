@@ -18,7 +18,7 @@ describe('authenticating', () => {
     moxios.uninstall(axios);
   });
 
-  const data = { data: { auth_token: 'eyJ07urLnYhISdyAqTAsPYVmwluFHxfn0g8pXa0JV14eVU', email: 'email@gmail.com' } };
+  const data = { data: { token: 'eyJ07urLnYhISdyAqTAsPYVmwluFHxfn0g8pXa0JV14eVU', email: 'email@gmail.com' } };
 
   it('user successfully logs in', () => {
     const loginDetails = {
@@ -33,7 +33,7 @@ describe('authenticating', () => {
     const expectedResponse = {
       data: {
         email: 'email@gmail.com',
-        auth_token: 'eyJ07urLnYhISdyAqTAsPYVmwluFHxfn0g8pXa0JV14eVU',
+        token: 'eyJ07urLnYhISdyAqTAsPYVmwluFHxfn0g8pXa0JV14eVU',
       },
     };
     moxios.wait(() => {
@@ -52,5 +52,4 @@ describe('authenticating', () => {
         expect(expectedResponse).toEqual(expectedActions[0].payload);
       });
   });
-
 });

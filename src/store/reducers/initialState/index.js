@@ -12,3 +12,7 @@ export const initialRegistrationState = {
   registered: false,
   message: '',
 };
+
+export const initialIncidentState = {
+  incidents: [],
+};
