@@ -11,7 +11,7 @@ export const IncidentsAction = url => (dispatch) => {
   } else if (url === 'intervention') {
     Url = `${IncidentsUrl}intervention`;
   }
-  axios.get(Url, {
+  return axios.get(Url, {
     headers: {
       'content-type': 'application/json',
       Authorization: `Bearer ${sessionStorage.getItem('token')}`,

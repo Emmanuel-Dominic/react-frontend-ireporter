@@ -21,8 +21,16 @@ describe('registration action testing', () => {
     email: 'email@gmail.com',
     password: 'password',
   };
-
-  it('should register user', () => {
+  const error406 = {
+    message: undefined,
+    userName: '',
+    firstName: 'username',
+    lastName: 'username',
+    phoneNumber: '07000000000',
+    email: 'email@gmail.com',
+    password: 'password',
+  };
+  it('should register user successfully', () => {
     moxios.wait(() => {
       const request = moxios.requests.mostRecent();
       request.respondWith({ status: 201, response: data });
@@ -41,6 +49,31 @@ describe('registration action testing', () => {
     const store = mockStore({});
     return store
       .dispatch(Registration(data))
+      .then(
+        () => {
+          expect(store.getActions()).toEqual(expectedAction);
+        },
+      );
+  });
+  it('should register user failure with 406', () => {
+    moxios.wait(() => {
+      const request = moxios.requests.mostRecent();
+      request.respondWith({ status: 406, response: error406 });
+    });
+
+    const expectedAction = [
+      {
+        type: RegistrationConstants.REGISTER_REQUEST,
+      },
+      {
+        payload: undefined,
+        type: RegistrationConstants.REGISTER_FAILURE,
+      },
+    ];
+
+    const store = mockStore({});
+    return store
+      .dispatch(Registration(error406))
       .then(
         () => {
           expect(store.getActions()).toEqual(expectedAction);

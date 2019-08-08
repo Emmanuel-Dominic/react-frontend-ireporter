@@ -1,0 +1,76 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<LoginUser /> should match snapshot 1`] = `
+<Fragment>
+  <ToastContainer
+    autoClose={5000}
+    bodyClassName={null}
+    className={null}
+    closeButton={
+      <CloseButton
+        ariaLabel="close"
+      />
+    }
+    closeOnClick={true}
+    draggable={true}
+    draggablePercent={80}
+    hideProgressBar={false}
+    newestOnTop={false}
+    pauseOnFocusLoss={true}
+    pauseOnHover={true}
+    position="top-right"
+    progressClassName={null}
+    progressStyle={null}
+    role="alert"
+    rtl={false}
+    style={null}
+    toastClassName={null}
+    transition={[Function]}
+  />
+  <div
+    className="incident-body"
+  >
+    <div
+      className="container card card-body"
+      key="5"
+    >
+      <h4
+        className="col-md-10 title"
+      >
+        Road Breakdown
+      </h4>
+      <div
+        className="row"
+      >
+        <p
+          className="col-md-2"
+        >
+          Manuel
+        </p>
+        <p
+          className="col-md-2"
+        >
+          draft
+        </p>
+      </div>
+      <div
+        className="row"
+      >
+        <p
+          className="col-md-2"
+        >
+          5.38974
+        </p>
+        <p
+          className="col-md-2"
+        >
+          0.33737
+        </p>
+      </div>
+      <p>
+        Mbale highway broken down after a previous track accident last month amonth 
+      </p>
+    </div>
+  </div>
+</Fragment>
+`;
